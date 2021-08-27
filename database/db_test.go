@@ -27,4 +27,8 @@ func TestJobInsert(t *testing.T) {
 	// Background job timestamps are nil
 	asserter.Nil(job.StartedAt)
 	asserter.Nil(job.FinishedAt)
+	asserter.Nil(job.QueuedAt)
+
+	// Status field might be null
+	asserter.Nil(job.Status)
 }
