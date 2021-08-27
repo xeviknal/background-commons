@@ -43,9 +43,6 @@ func getTables() tables {
 				{"Id", true},
 				{"ObjectId", true},
 				{"CreatedAt", true},
-				{"Sleep", false},
-				{"FinishedAt", false},
-				{"StartedAt", false},
 			},
 		},
 	}
