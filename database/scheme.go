@@ -30,7 +30,11 @@ func CreateScheme() error {
 }
 
 func DropTables() error {
-	return dbmap.DropTablesIfExists()
+	var err error
+	if dbmap != nil {
+		err = dbmap.DropTablesIfExists()
+	}
+	return err
 }
 
 func getTables() tables {
