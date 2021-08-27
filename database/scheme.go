@@ -1,6 +1,9 @@
 package database
 
 import (
+	"fmt"
+	"log"
+
 	"github.com/xeviknal/background-commons/models"
 )
 
@@ -19,6 +22,12 @@ type column struct {
 }
 
 func CreateScheme() error {
+	if dbmap == nil {
+		err := fmt.Errorf("can't create schemes because db is not present")
+		log.Fatal(err)
+		return err
+	}
+
 	for _, table := range getTables() {
 		t := dbmap.AddTableWithName(table.Model, table.Name).SetKeys(true, table.Key)
 		for _, column := range table.Columns {
@@ -30,7 +39,11 @@ func CreateScheme() error {
 }
 
 func DropTables() error {
-	return dbmap.DropTablesIfExists()
+	var err error
+	if dbmap != nil {
+		err = dbmap.DropTablesIfExists()
+	}
+	return err
 }
 
 func getTables() tables {

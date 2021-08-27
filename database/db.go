@@ -58,8 +58,11 @@ func NewDatabase() *gorp.DbMap {
 }
 
 func Close() error {
-	dbmap := GetDb()
-	return dbmap.Db.Close()
+	var err error
+	if dbmap != nil {
+		err = dbmap.Db.Close()
+	}
+	return err
 }
 
 func Clean() {
