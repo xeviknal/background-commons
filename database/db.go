@@ -12,12 +12,13 @@ import (
 )
 
 var dbmap *gorp.DbMap
-var user, pwd, db string
+var user, pwd, db, host string
 
-func SetConnectionConfig(u, p, d string) {
+func SetConnectionConfig(u, p, d, h string) {
 	user = u
 	pwd = p
 	db = d
+	host = h
 }
 
 // Singleton for access to the DB config
@@ -30,7 +31,7 @@ func GetDb() *gorp.DbMap {
 }
 
 func NewDatabase() *gorp.DbMap {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(mariadb.mariadb.svc.cluster.local)/%s?parseTime=true", user, pwd, db))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true", user, pwd, host, db))
 
 	if err != nil {
 		log.Fatal(err)
