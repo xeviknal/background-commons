@@ -30,7 +30,8 @@ func GetDb() *gorp.DbMap {
 }
 
 func NewDatabase() *gorp.DbMap {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(localhost)/%s?parseTime=true", user, pwd, db))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(mariadb.mariadb.svc.cluster.local)/%s?parseTime=true", user, pwd, db))
+
 	if err != nil {
 		log.Fatal(err)
 		return dbmap
